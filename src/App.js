@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import React ,{useEffect , useState} from 'react';
 import './App.css';
+import Profile from './Profile';
+import Order from './Order';
+import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
 
 function App() {
+
+   const [orderdata, setOrderdata] = useState([]);
+   useEffect(() => {
+
+        const getUsers = async () => {
+            await fetch("/order").then((res) => res.json()).then((data) => setOrderdata(data))
+        }
+       getUsers();
+    }, [])
+
+    console.log(orderdata);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <Router>
+     <Switch>
+     <Route exact path="/">
+ <Profile orderdata={orderdata}/>
+     </Route>
+      <Route path="/orderroute">
+      <Order orderdata={orderdata}/>
+     </Route>
+     </Switch>
+     </Router>
     </div>
   );
 }
