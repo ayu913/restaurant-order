@@ -7,10 +7,14 @@ import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
 function App() {
 
    const [orderdata, setOrderdata] = useState([]);
-   useEffect(() => {
+
+
+
+
+    useEffect(() => {
 
         const getUsers = async () => {
-            await fetch("/order").then((res) => res.json()).then((data) => setOrderdata(data))
+            await fetch(" https://react-express-order-summary.herokuapp.com/order").then((res) => res.json()).then((data) => setOrderdata(data))
         }
        getUsers();
     }, [])
